@@ -34,7 +34,7 @@ func startbot() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
 			if update.Message.IsCommand() {
-				if update.Message.Command() == "akall" {
+				if update.Message.Command() == "all" {
 
 					var ret []Data
 					db.Model(&Data{}).Find(&ret)
@@ -93,7 +93,8 @@ CPU核心数： %d
 上行流量： ↑%s
 流量对等性： %s
 
-更新于：%s UTC`,
+更新于：%s UTC
+宿主机探针: https://acck.icu`,
 						len(mm), online, cpu,
 						fmt.Sprintf("%.2f%%", float64(memused)/float64(mem)*100),
 						formatSize(memused), formatSize(mem),
@@ -159,7 +160,7 @@ CPU核心数： %d
 func setBotCommands(bot *tgbotapi.BotAPI) {
 	commands := []tgbotapi.BotCommand{
 		{Command: "id", Description: "查看你的 Telegram 用户 ID"},
-		{Command: "akall", Description: "查看所有服务器的统计信息"},
+		{Command: "all", Description: "查看所有服务器的统计信息"},
 		{Command: "server", Description: "获取服务器列表"},
 		{Command: "status", Description: "查看某个服务器状态"},
 	}
@@ -227,7 +228,8 @@ CPU核心数: %d
 流量对等性: %s
 运行时间: %s
 
-更新于: %s UTC`,
+更新于: %s UTC
+宿主机探针: https://acck.icu`,
 		serverName,
 		parseCPU(m.Host.CPU[0]),
 		fmt.Sprintf("%.2f%%", float64(m.State.MemUsed)/float64(m.Host.MemTotal)*100),
